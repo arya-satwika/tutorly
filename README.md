@@ -20,7 +20,7 @@ buka [http://localhost:3000](http://localhost:3000) di browser buat liat hasil e
 
 setelah code udh diedit dan mau di save, commit semua changes di vscode lalu bikin pull request
 
-buka pull request dan buka link netlify untuk preview hasil editan di deployment server
+buka [Pull Request](https://github.com/arya-satwika/tutorly/pulls) dan buka link netlify untuk preview hasil editan di deployment server
 
 ## Learn More
 
