@@ -1,17 +1,25 @@
-import { integer, jsonb, pgTable, serial, text } from 'drizzle-orm/pg-core';
+import { date, integer, jsonb, pgTable, serial, text } from 'drizzle-orm/pg-core';
 
-// export const users = pgTable('user', {
-// 	id: serial('id').primaryKey(),
-// });
-// export const routinesTable = pgTable('routine', {
-// 	id: serial('id').primaryKey(),
-// 	title: text('title').notNull(),
-// 	startAt: text('start_at').notNull(),
-// 	userId: text('user_id').notNull(),
-// 		// .references(() => users.id, { onDelete: 'cascade' }),
-// 	checkedBlocks: jsonb('checked_blocks').notNull(),
-// 	icon: text('icon').notNull()
-// });
+export const users = pgTable('user', {
+	id: serial('id').primaryKey(),
+    name: text('name').notNull(),
+    password: text('password').notNull(),
+    tahunAngkatan: integer('tahun_angkatan'),
+    saldo: integer('saldo').notNull(),
+    asalSekolah: text('asal_sekolah').notNull(),
+    prodi: text('program_studi').notNull(),
+    kampus: text('kampus'),
+
+});
+export const routinesTable = pgTable('routine', {
+	id: serial('id').primaryKey(),
+	title: text('title').notNull(),
+	startAt: text('start_at').notNull(),
+	userId: text('user_id').notNull()
+            .references(() => users.id, { onDelete: 'cascade' }),
+	checkedBlocks: jsonb('checked_blocks').notNull(),
+	icon: text('icon').notNull()
+});
 
 // export const checkedBlocks = pgTable('checked_blocks', {
 // 	// routineId: text('routine_id')
