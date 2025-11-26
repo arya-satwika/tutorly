@@ -15,7 +15,7 @@ export default function Login() {
             className="white:invert"
           />
           <h1 className="mt-4 text-3xl font-semibold text-zinc-900 dark:text-zinc-50">
-            Selamat Datang di Tutorly
+            Selamat Datang di ookokokok Tutorly
           </h1>
           <p className="mt-2 max-w-md text-lg text-zinc-600 dark:text-zinc-400">
             Masuk untuk mulai belajar bersama tutor terbaik.
