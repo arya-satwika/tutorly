@@ -6,6 +6,7 @@ export default function Login() {
       <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-center py-24 px-10 bg-white dark:bg-black sm:items-start">
         
         {/* Logo */}
+        {/* //misokokok */}
         <div className="flex w-full flex-col items-center sm:items-start mb-12">
           <Image
             src="/logo.png"               // ganti jika punya logo Tutorly
