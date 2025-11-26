@@ -1,6 +1,7 @@
 import { date, integer, jsonb, pgTable, serial, text } from 'drizzle-orm/pg-core';
+import { relations } from 'drizzle-orm';
 
-export const users = pgTable('user', {
+export const users = pgTable('users', {
 	id: serial('id').primaryKey(),
     name: text('name').notNull(),
     password: text('password').notNull(),
@@ -11,17 +12,24 @@ export const users = pgTable('user', {
     kampus: text('kampus'),
 
 });
-export const routinesTable = pgTable('routine', {
-	id: serial('id').primaryKey(),
-	title: text('title').notNull(),
-	startAt: text('start_at').notNull(),
-	userId: text('user_id').notNull()
-            .references(() => users.id, { onDelete: 'cascade' }),
-	checkedBlocks: jsonb('checked_blocks').notNull(),
-	icon: text('icon').notNull()
+
+// export const usersPaymentCredentials = relations(users, ({ one }) => ({
+//     paymentCredentials: one(paymentCredentials)
+// }));
+
+export const paymentCredentials = pgTable('payment_credential', {
+	id: serial('id_credentials').primaryKey(),
+	userId: integer('user_id').references(() => users.id, {onDelete: 'cascade'}).notNull(),
+	cardNumber: integer('card_number').notNull(),
+    expiryDate: date('expiry_date').notNull(),
+    cvv: integer('cvv').notNull(),
 });
 
-// export const checkedBlocks = pgTable('checked_blocks', {
+// export const profileInfoRelations = relations(paymentCredentials, ({ one }) => ({
+// 	user: one(users, { fields: [paymentCredentials.userId], references: [users.id] }),
+// }));
+
+// export const courses = pgTable('courses', {
 // 	// routineId: text('routine_id')
 // 	// 	.notNull()
 // 	// 	.references(() => routines.id, { onDelete: 'cascade' }),
