@@ -1,5 +1,6 @@
 import { date, integer, jsonb, pgTable, serial, text } from 'drizzle-orm/pg-core';
 import { relations } from 'drizzle-orm';
+import { metadata } from '../../app/layout';
 
 export const users = pgTable('users', {
 	id: serial('id').primaryKey(),
@@ -13,9 +14,9 @@ export const users = pgTable('users', {
 
 });
 
-// export const usersPaymentCredentials = relations(users, ({ one }) => ({
-//     paymentCredentials: one(paymentCredentials)
-// }));
+export const usersPaymentCredentials = relations(users, ({ one }) => ({
+    paymentCredentials: one(paymentCredentials)
+}));
 
 export const paymentCredentials = pgTable('payment_credential', {
 	id: serial('id_credentials').primaryKey(),
@@ -25,6 +26,17 @@ export const paymentCredentials = pgTable('payment_credential', {
     cvv: integer('cvv').notNull(),
 });
 
+export const courses = pgTable('courses', {
+    id: serial('id').primaryKey(),
+    title: text('title').notNull(),
+    description: text('description').notNull(),
+    teacher: text('teacher').references(() => users.name).notNull(),
+    metadata: jsonb('metadata').notNull(),
+})  
+
+export const chats = pgTable('chats', {
+
+})
 // export const profileInfoRelations = relations(paymentCredentials, ({ one }) => ({
 // 	user: one(users, { fields: [paymentCredentials.userId], references: [users.id] }),
 // }));
