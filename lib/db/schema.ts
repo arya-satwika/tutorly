@@ -1,6 +1,5 @@
-import { date, integer, jsonb, pgTable, serial, text } from 'drizzle-orm/pg-core';
+import { date, integer, jsonb, pgTable, serial, text, uuid, index, uniqueIndex } from 'drizzle-orm/pg-core';
 import { relations } from 'drizzle-orm';
-import { metadata } from '../../app/layout';
 
 export const users = pgTable('users', {
 	id: serial('id').primaryKey(),
@@ -32,11 +31,23 @@ export const courses = pgTable('courses', {
     description: text('description').notNull(),
     teacher: text('teacher').references(() => users.name).notNull(),
     metadata: jsonb('metadata').notNull(),
-})  
+}); 
 
 export const chats = pgTable('chats', {
+    id: uuid('id').primaryKey().defaultRandom(),
+    userId: integer('user_id').references(() => users.id, {onDelete: 'cascade'}).notNull(),
+    teacherId: integer('teacher_id').references(() => users.id, {onDelete: 'cascade'}).notNull(),
 
-})
+});
+export const messages = pgTable('messages', {
+    messageId: uuid('message_id').primaryKey().defaultRandom(),
+    chatId: uuid('chat_id').references(() => chats.id, {onDelete: 'cascade'}).notNull(),
+    senderId: integer('sender_id').references(() => users.id).notNull(),
+    content: text('content').notNull(),
+    timestamp: date('timestamp').notNull(),
+}, (thisTable)=>({
+    conversationCreatedIdx: index('conversation_created_idx').on(thisTable.chatId, thisTable.timestamp),
+}));
 // export const profileInfoRelations = relations(paymentCredentials, ({ one }) => ({
 // 	user: one(users, { fields: [paymentCredentials.userId], references: [users.id] }),
 // }));
