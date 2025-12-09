@@ -21,6 +21,6 @@ export const getUserById = async (id: number) => {
         .from(users)
         .where(eq(users.id, id))
         .limit(1);
-    return user;
+    return user[0];
 }
 
