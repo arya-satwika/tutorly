@@ -1,4 +1,4 @@
-import { date, integer, jsonb, pgTable, serial, text, uuid, index, uniqueIndex } from 'drizzle-orm/pg-core';
+import { date, integer, jsonb, pgTable, serial, text, uuid, index, uniqueIndex, PgTable } from 'drizzle-orm/pg-core';
 import { relations } from 'drizzle-orm';
 
 export const users = pgTable('users', {
@@ -12,6 +12,7 @@ export const users = pgTable('users', {
     kampus: text('kampus'),
 
 });
+
 
 export const usersPaymentCredentials = relations(users, ({ one }) => ({
     paymentCredentials: one(paymentCredentials)
@@ -45,9 +46,10 @@ export const messages = pgTable('messages', {
     senderId: integer('sender_id').references(() => users.id).notNull(),
     content: text('content').notNull(),
     timestamp: date('timestamp').notNull(),
-}, (thisTable)=>({
-    conversationCreatedIdx: index('conversation_created_idx').on(thisTable.chatId, thisTable.timestamp),
-}));
+}, (thisTable)=>([index('conversation_created_idx').on(thisTable.chatId, thisTable.timestamp)
+    ])
+);
+
 // export const profileInfoRelations = relations(paymentCredentials, ({ one }) => ({
 // 	user: one(users, { fields: [paymentCredentials.userId], references: [users.id] }),
 // }));
