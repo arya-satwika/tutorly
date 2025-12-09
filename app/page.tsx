@@ -1,12 +1,13 @@
 import Image from "next/image";
-
+import Navbar from "@/components/navbar";
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <h1 className="text-4xl font-bold text-zinc-800 dark:text-zinc-200">
-        Welcome to Tutorly!
-      </h1>  
+    <div className="flex">
+      <Navbar />
+      <div className="flex-1 bg-black p-4">
+        <h1 className="text-white">Welcome to Tutorly!</h1>
+      </div>
     </div>
   );
 }
