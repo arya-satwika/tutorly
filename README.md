@@ -18,9 +18,7 @@ npm run dev
 
 buka [http://localhost:3000](http://localhost:3000) di browser buat liat hasil editan code
 
-setelah code udh diedit dan mau di save, commit semua changes di vscode lalu bikin pull request
-
-buka [Pull Request](https://github.com/arya-satwika/tutorly/pulls) dan buka link netlify untuk preview hasil editan di deployment server
+setelah code udh diedit dan mau di save, commit semua changes di vscode lalu push (sync changes)
 
 ## Learn More
 
