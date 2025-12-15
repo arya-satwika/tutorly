@@ -24,3 +24,21 @@ export const getUserById = async (id: number) => {
     return user[0];
 }
 
+export const getUserByName = async (name: string, password: string) => {
+    try {
+        const user = await db
+            .select()
+            .from(users)
+            .where(eq(users.name, name))
+            .limit(1);
+        if (user[0].password === password) {
+            return { success: true, message: "User found", currentUser: user[0] };
+        }
+    } catch (error) {
+        console.error("Error fetching user by name:", error);
+        return { success: false, message: "Error fetching user by name: " + error as string, currentUser: null };
+    }
+    return { success: false, message: "User not found or incorrect password", currentUser: null };
+
+}
+

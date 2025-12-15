@@ -6,7 +6,7 @@ export const users = pgTable('users', {
     name: text('name').notNull(),
     password: text('password').notNull(),
     tahunAngkatan: integer('tahun_angkatan'),
-    saldo: integer('saldo').notNull(),
+    saldo: integer('saldo').default(0).notNull(),
     asalSekolah: text('asal_sekolah').notNull(),
     prodi: text('program_studi').notNull(),
     kampus: text('kampus'),
