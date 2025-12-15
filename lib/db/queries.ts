@@ -8,20 +8,22 @@ export type insertUserType = typeof users.$inferInsert;
 
 export const insertUser = async ( thisUser: insertUserType ) => {
     try {
-        await db
+        const [userId] = await db
             .insert(users)
-            .values(thisUser);
-        return { succes: true, message: "User inserted successfully" };
+            .values(thisUser)
+            .returning({id: users.id});
+        return { succes: true, message: "User inserted successfully", userId: userId.id };
+
     }catch (error) {
          if (error instanceof DrizzleQueryError) {
             const dbError = error.cause as DatabaseError;
             console.log('PostgreSQL Error Code:', dbError.code);
             console.log('Error Message:', dbError.message);
             if (dbError.code === '23505') { // unique_violation
-                return { succes: false, message: "username already exists" };
+                return { succes: false, message: "username already exists", userId: null };
             }
          }
-        return { succes: false, message: "Error inserting user: " + error as string };
+        return { succes: false, message: "Error inserting user: " + error as string, userId: null};
     }
 }
 

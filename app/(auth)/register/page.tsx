@@ -1,6 +1,7 @@
 'use client';
 import { registerUser } from "@/lib/actions";
 import { useActionState } from "react";
+import { redirect } from "next/navigation";
 
 
 export default function Register() {
@@ -12,6 +13,8 @@ export default function Register() {
   let userExists = false;
   if(message === "username already exists" && !succes){
     userExists = true;
+  } else if (message === "User inserted successfully" && succes){
+    redirect('/');
   }
 
   return (

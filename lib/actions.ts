@@ -1,6 +1,8 @@
 'use server';
 import { type insertUserType, insertUser, getUserByName } from "./db/queries";
 import { register } from 'module';
+import { createSession } from './session';
+import { create } from "domain";
 
 interface registerState {
   succes: boolean;
@@ -29,13 +31,14 @@ export async function registerUser(prevState:registerState, formData: FormData){
     const tahunAngkatan:number = Number(formData.get('tahunAngkatan'));
     
     if(name && password && asalSekolah && prodi && tahunAngkatan){
-        const { succes, message } = await insertUser({
+        const { succes, message, userId } = await insertUser({
             name,
             password,
             asalSekolah,
             prodi,
             tahunAngkatan
         } as insertUserType);
+        succes && createSession(userId as number, name);
         return { succes, message };
     }
     return { succes: false, message: "" };
