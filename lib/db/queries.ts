@@ -4,7 +4,7 @@ import { eq } from 'drizzle-orm';
 
 type insertUser = typeof users.$inferInsert;
 
-export const insetUser = async ( thisUser: insertUser ) => {
+export const insertUser = async ( thisUser: insertUser ) => {
     try {
         await db
             .insert(users)
