@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { insertUser } from "@/lib/db/queries";
-// import type { typeUserInsert } from "@/lib/db/queries";
 
 export default function Home(){
     async function submitUser(formData: FormData) {
@@ -23,7 +22,7 @@ export default function Home(){
 
   return (
       <div className="flex-1 bg-gray-500 p-4">
-        <h1 className="text-white">SANDBOX!</h1>
+        <h1 className="text-white text-5xl font-bold">SANDBOX!</h1>
         <form action={submitUser}>
             <input type="text" placeholder="nama" name="name" className="bg-red-700"/>
             <br />

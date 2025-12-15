@@ -1,30 +1,22 @@
 'use client';
-import { useState } from "react";
+import { registerUser } from "@/lib/actions";
+import { useActionState } from "react";
+import { redirect } from "next/navigation";
 
 
 export default function Register() {
-  let [isSucces, setSucces] = useState(true);
 
-  async function handleRegister(formData : FormData) {
-    const name = formData.get('username') as string;
-    const password = formData.get('password') as string;
-    const asalSekolah = formData.get('asalSekolah') as string;
-    const prodi = formData.get('programStudi') as string;
-    const tahunAngkatan:number = Number(formData.get('tahunAngkatan'));
-    
-    const response = await fetch('/api/register',{
-      method: 'POST',
-      body: JSON.stringify({ name, password, asalSekolah, prodi, tahunAngkatan }),
-    })
-    const { succes, message } =  await response.json();
-    if (!succes) {
-      setSucces(false);
-      console.log(message);
-    } else{
-      setSucces(true);  
-      console.log(message);   
-    }
+  const [{succes, message}, handleRegister, isPending ] = useActionState(registerUser, {
+    succes: true,
+    message: ""
+  });
+  let userExists = false;
+  if(message === "username already exists" && !succes){
+    userExists = true;
+  } else if (message === "User inserted successfully" && succes){
+    redirect('/');
   }
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
         <h1 className="text-3xl font-bold mb-10">Tutorly</h1>
@@ -33,7 +25,7 @@ export default function Register() {
           <form action={handleRegister} className="flex flex-col gap-5 w-3/4">
             <div className="w-full">
             <h1 className="text-xl text-foreground-blue">Username</h1>
-            <p>{!isSucces && "Invalid credentials"}</p>
+            <p className="text-alert-yellow font-bold">{userExists && "Username already exists"}</p>
             <input 
               className="bg-card-background-light text-foreground-blue w-full rounded-xl px-2 h-10 ring-1  ring-foreground-blue focus:outline-none focus:ring-clickable-focus focus:ring-2"  
               type="text"

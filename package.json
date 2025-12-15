@@ -16,8 +16,6 @@
     "clsx": "^2.1.1",
     "dotenv": "^17.2.3",
     "drizzle-orm": "^0.44.7",
-    "framer-motion": "^12.23.26",
-    "lucide-react": "^0.561.0",
     "next": "16.0.3",
     "package-lock.json": "^1.0.0",
     "package.json": "^2.0.1",
