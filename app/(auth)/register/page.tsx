@@ -1,5 +1,4 @@
 'use client';
-import Image from "next/image";
 import { useState } from "react";
 
 
@@ -7,21 +6,23 @@ export default function Register() {
   let [isSucces, setSucces] = useState(true);
 
   async function handleRegister(formData : FormData) {
-    const username = formData.get('username') as string;
+    const name = formData.get('username') as string;
     const password = formData.get('password') as string;
     const asalSekolah = formData.get('asalSekolah') as string;
-    const programStudi = formData.get('programStudi') as string;
-    const tahunAngkatan = formData.get('tahunAngkatan') as string;
+    const prodi = formData.get('programStudi') as string;
+    const tahunAngkatan:number = Number(formData.get('tahunAngkatan'));
     
     const response = await fetch('/api/register',{
       method: 'POST',
-      body: JSON.stringify({ username, password, asalSekolah, programStudi, tahunAngkatan }),
+      body: JSON.stringify({ name, password, asalSekolah, prodi, tahunAngkatan }),
     })
-    const { success, currentUser } =  await response.json();
-    if (!success || !currentUser) {
+    const { succes, message } =  await response.json();
+    if (!succes) {
       setSucces(false);
+      console.log(message);
     } else{
-      console.log(currentUser);
+      setSucces(true);  
+      console.log(message);   
     }
   }
   return (
