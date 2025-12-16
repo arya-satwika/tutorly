@@ -1,13 +1,13 @@
 'use server';
-import { type insertUserType, type insertCourseType, insertCourse, insertUser, getUserByName } from "./db/queries";
-import { createSession } from './session';
+import { type insertUserType, type insertCourseType, insertCourse, insertUser, getUserByName, getUserById, updatePassword } from "./db/queries";
+import { createSession, getUserId } from './session';
 import { UploadClient } from '@uploadcare/upload-client'
+import { ChangePasswordForm } from '../components/user_forms';
 
 interface ActionState {
   succes: boolean;
   message: string;
 }
-
 
 export async function registerUser(prevState:ActionState, formData: FormData){
     const name = formData.get('username') as string;
@@ -40,6 +40,35 @@ export async function loginUser(prevState: ActionState, formData: FormData) {
     }
 
     return { succes: response.succes, message: response.message };
+}
+
+export async function changePassword(prevState: ActionState, formData: FormData){
+  const userId = await getUserId();
+  if (userId){
+    const user = await getUserById(userId);
+    if (user){
+      const oldPassword = formData.get('oldPassword') as string;
+      const newPassword = formData.get('newPassword') as string;
+      const confirmPassword = formData.get('confirmPassword') as string;
+
+      if (user.password === oldPassword){
+        if (newPassword === confirmPassword){
+          await updatePassword(userId, newPassword);
+          return { succes: true, message: "Password successfully changed" };
+        } else {
+          return { succes: false, message: "New password and confirmation do not match" };
+        }
+      }else {
+        return { succes: false, message: "Old password is incorrect" };
+      } 
+
+    }else{
+      return { succes: false, message: "User not found" };
+    }
+  }
+  return { succes: false, message: "User not found" };
+
+
 }
 
 export  async function addCourse(prevState: ActionState , formData: FormData){

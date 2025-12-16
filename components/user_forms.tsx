@@ -1,5 +1,5 @@
 'use client'
-import { loginUser, registerUser } from "@/lib/actions";
+import { loginUser, registerUser, changePassword } from "@/lib/actions";
 import { redirect } from "next/navigation";
 import { useState } from "react";
 import { useActionState } from "react";
@@ -105,9 +105,9 @@ export function RegisterForm(){
     
     let userExists = false;
     if(message === "username already exists" && !succes){
-    userExists = true;
+      userExists = true;
     } else if (message === "User inserted successfully" && succes){
-    redirect('/');
+      redirect('/');   
     }
 
     return(
@@ -205,13 +205,39 @@ export function RegisterForm(){
 }
 
 export function ChangePasswordForm(){
-
+  let [{succes, message}, handleChangePassword, isPending ] = useActionState(changePassword, {
+        succes: true,
+        message: ""
+  });
+  if (succes){
+    redirect('/');
+  }
+  
+  return (
+      <div>
+          <h1>Change Password Page</h1>
+          {!succes && (
+            <p className="text-red-500 text-xs mb-1"> {message}  </p>
+          )}
+          <form action={handleChangePassword}>  
+              <input type="password" name="oldPassword" placeholder="Current Password" />
+              <br />
+              <input type="password" name="newPassword" placeholder="New Password" />
+              <br />
+              <input type="password" name="confirmPassword" placeholder="Confirm New Password" />
+              <br />
+              <button type="submit">Change Password</button>
+          </form>
+      </div>
+  );
 }
 
 export default function UserForms({formType}: {formType: formType}){
     if (formType === 'login'){
         return <LoginForm />;
-    } else {
+    } else if (formType === 'register'){
         return <RegisterForm />;
+    } else if (formType === 'changePassword'){
+        return <ChangePasswordForm />;
     }
 }
