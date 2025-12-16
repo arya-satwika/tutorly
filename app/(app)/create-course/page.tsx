@@ -4,10 +4,11 @@ import { insertUser } from "@/lib/db/queries";
 import { useActionState } from "react";
 import { addCourse } from "@/lib/actions";
 
-export default function Home(){
-    const [ state, handleSubmit, isPending ] = useActionState(addCourse,{
+export default function createCourse(){
+    const [ {succes, message, imageUrl}, handleSubmit, isPending ] = useActionState(addCourse,{
         succes: false,
-        message: ""
+        message: "",
+        imageUrl: ""
     })
     // async function submitUser(formData: FormData) {
     //     'use server'
