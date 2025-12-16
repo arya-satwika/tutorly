@@ -57,7 +57,19 @@ export const getUserByName = async (name: string, password: string) => {
         return { succes: false, message: "Error fetching user by name: " + error as string, currentUser: null };
     }
     return { succes: false, message: "User not found or incorrect password", currentUser: null };
+}
 
+export async function updatePassword(userId: number, newPassword: string){
+    try{
+        await db
+            .update(users)
+            .set({ password: newPassword })
+            .where(eq(users.id, userId))
+            .returning({id: users.id});
+    } catch (error) {
+        console.error("Error updating password:", error);
+        return { succes: false, message: "Error updating password: " + error as string };
+    }
 }
 
 export async function insertCourse(newCourse: insertCourseType){
