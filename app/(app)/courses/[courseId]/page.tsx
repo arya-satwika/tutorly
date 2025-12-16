@@ -13,7 +13,7 @@ export default async function Page({
     
     if(course){
         const numberOfStudents = course.usersEnrolledId ? course.usersEnrolledId.length : 0;
-        const teacher = course.teacher;
+        const teacher = course.teacherData;
         return(
             <div className="flex-1 bg-gray-50 min-h-screen">
 
