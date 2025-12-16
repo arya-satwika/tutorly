@@ -78,6 +78,8 @@ export  async function addCourse(prevState: ActionState , formData: FormData){
   const harga = Number(formData.get('harga'));
   const tagsString = formData.get('tags') as string;
   const image = formData.get('image') as File;
+  const startAt = (formData.get('startAt')) as string;
+  const endAt = (formData.get('endAt')) as string;
   const tags = tagsString.split(',').map(tag => tag.trim());
 
   // Check if image was provided
@@ -86,6 +88,18 @@ export  async function addCourse(prevState: ActionState , formData: FormData){
   }
 
   try {
+    const startDate = new Date(startAt);
+    const endDate = new Date(endAt);
+    // Validate start is before end
+    if (startDate >= endDate) {
+      return { success: false, message: 'End time must be after start time' };
+    }
+
+    // Validate not in the past (optional)
+    const now = new Date();
+    if (startDate < now) {
+      return { success: false, message: 'Start time cannot be in the past' };
+    }
      // 1. Convert File to Buffer
     const bytes = await image.arrayBuffer();
     const buffer = Buffer.from(bytes);
@@ -105,6 +119,7 @@ export  async function addCourse(prevState: ActionState , formData: FormData){
       teacher,
       harga,
       imageUrl,
+      duration,
       tags: tags,
       // imageUrl
     };

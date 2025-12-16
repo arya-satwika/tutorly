@@ -18,6 +18,7 @@ export default async function Home() {
               tags = {course.tags}
               description={course.description}
               imageUrl={course.imageUrl}
+              studentCount={course.usersEnrolledId.length}
               teacherName={course.teacherData.name}
               harga={course.harga}
               />
