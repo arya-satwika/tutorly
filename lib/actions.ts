@@ -1,6 +1,7 @@
 'use server';
 import { type insertUserType, type insertCourseType, insertCourse, insertUser, getUserByName } from "./db/queries";
 import { createSession } from './session';
+import { UploadClient } from '@uploadcare/upload-client'
 
 interface ActionState {
   succes: boolean;
@@ -47,16 +48,41 @@ export  async function addCourse(prevState: ActionState , formData: FormData){
   const teacher = formData.get('teacher') as string;
   const harga = Number(formData.get('harga'));
   const tagsString = formData.get('tags') as string;
+  const image = formData.get('image') as File;
   const tags = tagsString.split(',').map(tag => tag.trim());
-  const newCourse: insertCourseType = {
-    title,
-    description,
-    teacher,
-    harga,
-    tags: { jsonb: tags }
-  };
-  const { succes, message } = await insertCourse(newCourse);
-  return { succes, message
+
+  // Check if image was provided
+  if (!image || image.size === 0) {
+    return { succes: false, message: "No image provided", imageUrl: "" };
   }
-  // const { succes, message } = await insertCourse
+
+  try {
+     // 1. Convert File to Buffer
+    const bytes = await image.arrayBuffer();
+    const buffer = Buffer.from(bytes);
+
+    // 2. Convert Buffer to Node.js Readable Stream
+    const uploadCareClient = new UploadClient({
+      publicKey: process.env.UPLOADCARE_API_KEY!,
+      store: 'auto',
+    });
+    const returnImage = await uploadCareClient.uploadFile(buffer);
+    // Construct the CDN URL from the uploaded file UUID
+    const imageUrl = `https://4zj2fsf4qc.ucarecd.net/${returnImage.uuid}/`;
+    
+    const newCourse: insertCourseType = {
+      title,
+      description,
+      teacher,
+      harga,
+      imageUrl,
+      tags: { jsonb: tags },
+      // imageUrl
+    };
+    const { succes, message } = await insertCourse(newCourse);
+    return { succes, message, imageUrl };
+  } catch (error) {
+    console.error("Upload error:", error);
+    return { succes: false, message: "Failed to upload image", imageUrl: "" };
+  }
 }

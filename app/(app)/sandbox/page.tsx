@@ -5,27 +5,11 @@ import { useActionState } from "react";
 import { addCourse } from "@/lib/actions";
 
 export default function Home(){
-    const [ state, handleSubmit, isPending ] = useActionState(addCourse,{
+    const [ {succes, message, imageUrl}, handleSubmit, isPending ] = useActionState(addCourse,{
         succes: false,
-        message: ""
+        message: "",
+        imageUrl: ""
     })
-    // async function submitUser(formData: FormData) {
-    //     'use server'
-    //     const name = formData.get('name');
-    //     const password = formData.get('password');
-    //     const asalSekolah = formData.get('asalSekolah');
-    //     const saldo = formData.get('saldo');
-    //     const prodi = formData.get('prodi');
-    //     const newUser = {
-    //         name: name as string,
-    //         password: password as string,
-    //         asalSekolah: asalSekolah as string,
-    //         saldo: parseInt(saldo as string),
-    //         prodi: prodi as string,
-    //     }
-    //     const result = await insertUser(newUser);
-    //     console.log(result);
-    // }
 
   return (
       <div className="flex-1 bg-gray-500 p-4">
@@ -40,8 +24,43 @@ export default function Home(){
             <input type="text" placeholder="harga" name="harga" className="bg-red-700"/>
             <br />
             <input type="text" placeholder="tags" name="tags" className="bg-red-700"/>
-            <button type="submit">Submit</button>
+            <input type="file" name="image" accept='.png,.jpg,.jpeg,.webp' className="bg-red-700"/>
+            
+            
+            <button type="submit" disabled={isPending}>
+              {isPending ? "Uploading..." : "Submit"}
+            </button>
         </form>
+        
+        {/* Display upload result */}
+        {message && (
+          <div className={`mt-4 p-3 rounded-lg ${succes ? 'bg-green-600' : 'bg-red-600'}`}>
+            <p className="text-white">{message}</p>
+          </div>
+        )}
+        
+        {imageUrl && (
+          <div className="mt-4 p-4 bg-gray-700 rounded-lg">
+            <p className="text-white mb-2">Uploaded Image URL:</p>
+            <a 
+              href={imageUrl} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-cyan-400 hover:text-cyan-300 break-all"
+            >
+              {imageUrl}
+            </a>
+            <div className="mt-4">
+              <Image 
+                src={imageUrl} 
+                alt="Uploaded image" 
+                width={300} 
+                height={200} 
+                className="rounded-lg object-cover"
+              />
+            </div>
+          </div>
+        )}
       </div>
   );
 }
