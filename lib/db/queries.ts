@@ -72,10 +72,11 @@ export async function insertCourse(newCourse: insertCourseType){
 }   
 
 export async function getCourseById(courseId: number){
-    const [course] = await db
-        .select()
-        .from(courses)
-        .where(eq(courses.id, courseId))
-        .limit(1);
+    const course = await db.query.courses.findFirst({
+        where: eq(courses.id, courseId),
+        with:{
+            teacher: true
+        }
+    })
     return course;
 }

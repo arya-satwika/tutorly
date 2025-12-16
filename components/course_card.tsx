@@ -9,7 +9,7 @@ type CourseCardProps = {
     imageUrl: string,
     teacher: string,
     teacherAvatar?: string,
-    price: number,
+    harga: number,
     studentCount?: number,
     lessonCount?: number,
     duration?: string,
@@ -29,14 +29,14 @@ export function CourseTags({courseTag}: {courseTag: string}){
 let placeholderDesc = "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
 
 export default function CourseCard({
-    id=5,
-    title='title', 
-    description=placeholderDesc, 
+    id,
+    title, 
+    description, 
     tags=[], 
     imageUrl, 
-    teacher = 'Instructor',
+    teacher,
+    harga,
     teacherAvatar,
-    price = 0,
     studentCount = 500,
     lessonCount = 5,
     duration = '1h30m',

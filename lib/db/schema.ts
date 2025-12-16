@@ -34,7 +34,19 @@ export const courses = pgTable('courses', {
     harga: integer('harga').default(0).notNull(),
     imageUrl: text('image_url').notNull(),
     tags: jsonb('tags').notNull().$type<string[]>(),
+    usersEnrolledId: jsonb('users_enrolled').default('[]').$type<number[]>().references(() => users.id),
 }); 
+
+export const coursesRelations = relations(courses, ({ one }) => ({
+  teacher: one(users, {
+    fields: [courses.teacher],
+    references: [users.name],
+  }),
+}));
+
+export const usersRelations = relations(users, ({ many }) => ({
+  courses: many(courses),
+}));
 
 export const chats = pgTable('chats', {
     id: uuid('id').primaryKey().defaultRandom(),

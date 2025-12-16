@@ -1,0 +1,2 @@
+ALTER TABLE "courses" ADD COLUMN "users_enrolled" jsonb DEFAULT '[]';--> statement-breakpoint
+ALTER TABLE "courses" ADD CONSTRAINT "courses_users_enrolled_users_id_fk" FOREIGN KEY ("users_enrolled") REFERENCES "public"."users"("id") ON DELETE no action ON UPDATE no action;
