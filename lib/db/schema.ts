@@ -38,7 +38,7 @@ export const courses = pgTable('courses', {
 }); 
 
 export const coursesRelations = relations(courses, ({ one }) => ({
-  teacher: one(users, {
+  teacherData: one(users, {
     fields: [courses.teacher],
     references: [users.name],
   }),

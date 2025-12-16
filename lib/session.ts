@@ -1,10 +1,6 @@
 'server-only'
 import { SignJWT, jwtVerify } from 'jose';
 import { cookies } from 'next/headers'
-import { redirect } from 'next/navigation';
-import { getUserById } from './db/queries';
-import { get } from 'http';
-import { create } from 'domain';
 
 export interface SessionPayload {
     userId: number;
@@ -50,8 +46,10 @@ export async function createSession(userId: number, name: string) {
 export async function getUserId(){
     const cookie = (await cookies()).get('session')?.value
     const session = await decrypt(cookie)
-
-    return { userId: session?.userId, name: session?.name }
+    if(session){
+      return session.userId as number
+    }
+    return null
 }
 
 // export async function verifySession(userId:number, name:string){

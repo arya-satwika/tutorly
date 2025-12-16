@@ -11,7 +11,7 @@ interface NavbarProps {
 
 export default function Navbar({ 
   children, 
-  username="Guest", 
+  username="user", 
   saldo=0
  }: NavbarProps) {
   const pathname = usePathname();

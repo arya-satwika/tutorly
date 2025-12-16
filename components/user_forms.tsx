@@ -1,3 +1,4 @@
+'use client'
 import { loginUser, registerUser } from "@/lib/actions";
 import { redirect } from "next/navigation";
 import { useState } from "react";
@@ -202,6 +203,11 @@ export function RegisterForm(){
       </div>
     );
 }
+
+export function ChangePasswordForm(){
+
+}
+
 export default function UserForms({formType}: {formType: formType}){
     if (formType === 'login'){
         return <LoginForm />;

@@ -75,8 +75,18 @@ export async function getCourseById(courseId: number){
     const course = await db.query.courses.findFirst({
         where: eq(courses.id, courseId),
         with:{
-            teacher: true
+            teacherData: true
         }
     })
     return course;
+}
+
+export async function get10Courses(){
+    const courseList = await db.query.courses.findMany({
+        limit: 10,
+        with:{
+            teacherData: true
+        }
+    });
+    return courseList;
 }
