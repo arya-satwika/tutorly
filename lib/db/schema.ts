@@ -1,4 +1,4 @@
-import { date, integer, jsonb, pgTable, serial, text, uuid, index, uniqueIndex, PgTable } from 'drizzle-orm/pg-core';
+import { date, integer, jsonb, pgTable, serial, text, uuid, index, uniqueIndex, PgTable, timestamp } from 'drizzle-orm/pg-core';
 import { relations } from 'drizzle-orm';
 
 export const users = pgTable('users', {
@@ -34,7 +34,9 @@ export const courses = pgTable('courses', {
     harga: integer('harga').default(0).notNull(),
     imageUrl: text('image_url').notNull(),
     tags: jsonb('tags').notNull().$type<string[]>(),
-    usersEnrolledId: jsonb('users_enrolled').default('[]').$type<number[]>().references(() => users.id),
+    startAt: timestamp('start_at', { withTimezone: true }).notNull(),
+    endAt: timestamp('end_at', { withTimezone: true }).notNull(),
+    usersEnrolledId: jsonb('users_enrolled').default([]).notNull().$type<number[]>().references(() => users.id),
 }); 
 
 export const coursesRelations = relations(courses, ({ one }) => ({

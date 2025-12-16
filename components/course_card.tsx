@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import { format } from 'date-fns';
 
 type CourseCardProps = {
     id: number,
@@ -11,8 +12,8 @@ type CourseCardProps = {
     teacherAvatar?: string,
     harga: number,
     studentCount?: number,
-    lessonCount?: number,
-    duration?: string,
+    startAt: Date,
+    endAt: Date,
     rating?: number,
     className?: string
 }
@@ -36,9 +37,9 @@ export default function CourseCard({
     imageUrl,
     teacherName,
     harga,
-    studentCount = 500,
-    lessonCount = 5,
-    duration = '1h30m',
+    studentCount,
+    startAt,
+    endAt,
     rating = 5.0,
     className
 }: CourseCardProps){
@@ -50,14 +51,10 @@ export default function CourseCard({
     
     
     const sizedUrl = `${imageUrl}-/scale_crop/300x200/center/`
+    const dateStart = new Date(startAt);
+    const dateEnd = new Date(endAt);
     return(
-        <div className={`bg-white rounded-2xl border-2 border-blue-100 overflow-hidden shadow-md w-[300px] ${className}`}>
-            <Link 
-            href={`/courses/${id}`}
-            className="absolute inset-0 z-10"
-            />
-
-            {/* Course Image */}
+        <Link href={`/courses/${id}`} className={`bg-white rounded-2xl border-2 border-blue-100 overflow-hidden shadow-md w-90 ${className}`}>
             <div className="relative h-[200px] w-full">
                 {imageUrl && (
                     <Image 
@@ -91,15 +88,9 @@ export default function CourseCard({
                     </div>
                     <div className="flex items-center gap-1">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
-                        </svg>
-                        <span>{lessonCount}Doc</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
-                        <span>{duration}</span>
+                        <span>{format(startAt, 'MM/dd/yy, h:mm')} - {format(endAt, 'MM/dd/yy, h:mm')}</span>
                     </div>
                 </div>
                 
@@ -124,6 +115,6 @@ export default function CourseCard({
                     </div>
                 </div>
             </div>
-        </div>
+        </Link>
     );
 }
