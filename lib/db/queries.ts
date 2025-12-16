@@ -1,10 +1,11 @@
-import { users } from '@/lib/db/schema';
+import { courses, users } from '@/lib/db/schema';
 import { db } from '@/lib/db/index';
 import { eq } from 'drizzle-orm';
 import { DrizzleQueryError } from 'drizzle-orm/errors';
 import { DatabaseError } from 'pg';
 
 export type insertUserType = typeof users.$inferInsert;
+export type insertCourseType = typeof courses.$inferInsert;
 
 export const insertUser = async ( thisUser: insertUserType ) => {
     try {
@@ -57,4 +58,15 @@ export const getUserByName = async (name: string, password: string) => {
     return { succes: false, message: "User not found or incorrect password", currentUser: null };
 
 }
+
+export async function insertCourse(newCourse: insertCourseType){
+    const [course] = await db
+        .insert(courses)
+        .values(newCourse)
+        .returning({id: courses.id, title: courses.title});
+    if(course){
+        return { succes: true, message: "Course added successfully" };
+    }
+    return { succes: false, message: "Failed to add course" };
+}   
 

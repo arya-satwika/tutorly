@@ -17,7 +17,7 @@ interface FeatureCardProps {
 
 export default function DashboardPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 text-white">
+    <div className="min-h-screen bg-linear-to-br from-indigo-500 via-purple-500 to-pink-500 text-white">
       {/* Navbar */}
       <nav className="flex items-center justify-between px-8 py-4 bg-black/20 backdrop-blur-md">
         <h1 className="text-2xl font-bold tracking-wide">TUTORLY</h1>

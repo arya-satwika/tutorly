@@ -31,7 +31,8 @@ export const courses = pgTable('courses', {
     title: text('title').notNull(),
     description: text('description').notNull(),
     teacher: text('teacher').references(() => users.name).notNull(),
-    metadata: jsonb('metadata').notNull(),
+    harga: integer('harga').default(0).notNull(),
+    tags: jsonb('tags').notNull(),
 }); 
 
 export const chats = pgTable('chats', {

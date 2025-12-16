@@ -1,29 +1,14 @@
 'use server';
-import { type insertUserType, insertUser, getUserByName } from "./db/queries";
-import { register } from 'module';
+import { type insertUserType, type insertCourseType, insertCourse, insertUser, getUserByName } from "./db/queries";
 import { createSession } from './session';
-import { create } from "domain";
 
-interface registerState {
+interface ActionState {
   succes: boolean;
   message: string;
 }
-interface loginState {
-  succes: boolean;
-  message: string;
-  currentUser: {
-    id: number;
-    name: string;
-    password: string;
-    asalSekolah: string;
-    prodi: string;
-    tahunAngkatan: number | null;
-    saldo: number | null;
-    kampus: string | null;
-  } | null;
-}
 
-export async function registerUser(prevState:registerState, formData: FormData){
+
+export async function registerUser(prevState:ActionState, formData: FormData){
     const name = formData.get('username') as string;
     const password = formData.get('password') as string;
     const asalSekolah = formData.get('asalSekolah') as string;
@@ -43,9 +28,35 @@ export async function registerUser(prevState:registerState, formData: FormData){
     }
     return { succes: false, message: "" };
 }
-export async function loginUser(prevState: loginState, formData: FormData) {
+export async function loginUser(prevState: ActionState, formData: FormData) {
     const name = formData.get('username') as string;
     const password = formData.get('password') as string;
+    // cek credential
     const response = await getUserByName(name, password);
-    return response;
+    //bikin session kalo succes
+    if (response.succes && response.currentUser){
+      await createSession(response.currentUser.id, response.currentUser.name);
+    }
+
+    return { succes: response.succes, message: response.message };
+}
+
+export  async function addCourse(prevState: ActionState , formData: FormData){
+  const title = formData.get('title') as string;
+  const description = formData.get('description') as string;
+  const teacher = formData.get('teacher') as string;
+  const harga = Number(formData.get('harga'));
+  const tagsString = formData.get('tags') as string;
+  const tags = tagsString.split(',').map(tag => tag.trim());
+  const newCourse: insertCourseType = {
+    title,
+    description,
+    teacher,
+    harga,
+    tags: { jsonb: tags }
+  };
+  const { succes, message } = await insertCourse(newCourse);
+  return { succes, message
+  }
+  // const { succes, message } = await insertCourse
 }
