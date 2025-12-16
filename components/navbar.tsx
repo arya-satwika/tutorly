@@ -3,24 +3,50 @@ import { usePathname } from 'next/navigation';
 // import { headers } from 'next/headers';
 import Link from "next/link";
 
-export default function Navbar({ children }: { children: React.ReactNode }) {
+interface NavbarProps {
+  children: React.ReactNode;
+  username?: string;
+  saldo?: number
+}
+
+export default function Navbar({ 
+  children, 
+  username="Guest", 
+  saldo=0
+ }: NavbarProps) {
   const pathname = usePathname();
-  const headerStyle = pathname === '/home' 
-    ? 'text-cyan-600 bg-cyan-50 border-l-3 border-cyan-500 rounded-lg' 
-    : pathname === '/sandbox' 
-    ? 'text-cyan-600 bg-cyan-50 border-l-3 border-cyan-500 rounded-lg':
-    '';
+  // const headerStyle = pathname === '/home' 
+  //   ? 'text-cyan-600 bg-cyan-50 border-l-3 border-cyan-500 rounded-lg' 
+  //   : pathname === '/sandbox' 
+  //   ? 'text-cyan-600 bg-cyan-50 border-l-3 border-cyan-500 rounded-lg':
+  //   '';
   return (
     <div className="flex">
       {/* Sidebar */}
-      <div className="flex flex-col min-h-screen w-56 py-6 px-4 bg-sky-50 border-r border-sky-100">
+      <div className="flex flex-col  min-h-screen w-56 py-6 px-4 bg-sky-50 border-r border-sky-100">
+        <div>
         {/* Logo */}
         <h1 className="text-2xl font-bold text-gray-800 mb-8 px-2">
           Tutorly
         </h1>
         
         {/* Navigation Links */}
+        
         <nav className="flex flex-col gap-1">
+          {/* User Info */}
+          <Link className="flex items-center gap-3 px-3 py-1 bg-blue-100 rounded-full" href='/'>
+            {/* User Icon */}
+            <div className="w-10 h-10 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-500">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+              </svg>
+            </div>
+            {/* User Info */}
+            <div>
+              <p className="text-md font-medium text-gray-800">{username}</p>
+              <p className="text-sm text-gray-500">Rp {saldo.toLocaleString()}</p>
+            </div>
+          </Link>
           <Link 
             href="/" 
             className={`flex items-center gap-3 px-3 py-2.5 ${pathname === '/' ? ' text-cyan-600 bg-cyan-50 border-l-3 border-cyan-500 rounded-lg' : 'text-gray-600 hover:bg-sky-100 rounded-lg transition-colors'}`}
@@ -32,8 +58,8 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
           </Link>
           
           <Link 
-            href="/sandbox" 
-            className={`flex items-center gap-3 px-3 py-2.5 ${pathname === '/sandbox' ? ' text-cyan-600 bg-cyan-50 border-l-3 border-cyan-500 rounded-lg' : 'text-gray-600 hover:bg-sky-100 rounded-lg transition-colors'}`}
+            href="/courses" 
+            className={`flex items-center gap-3 px-3 py-2.5 ${pathname == '/courses' ? ' text-cyan-600 bg-cyan-50 border-l-3 border-cyan-500 rounded-lg' : 'text-gray-600 hover:bg-sky-100 rounded-lg transition-colors'}`}
           >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
               <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
@@ -72,8 +98,10 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
             <span className="text-sm font-medium">Settings</span>
           </Link>
         </nav>
-      </div>
+        </div>
       
+      </div>
+
       {/* Main Content */}
       <div className="flex-1 bg-white">
         {children}
