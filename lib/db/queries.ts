@@ -3,6 +3,7 @@ import { db } from '@/lib/db/index';
 import { eq } from 'drizzle-orm';
 import { DrizzleQueryError } from 'drizzle-orm/errors';
 import { DatabaseError } from 'pg';
+import { get } from 'http';
 
 export type insertUserType = typeof users.$inferInsert;
 export type insertCourseType = typeof courses.$inferInsert;
@@ -70,3 +71,11 @@ export async function insertCourse(newCourse: insertCourseType){
     return { succes: false, message: "Failed to add course" };
 }   
 
+export async function getCourseById(courseId: number){
+    const [course] = await db
+        .select()
+        .from(courses)
+        .where(eq(courses.id, courseId))
+        .limit(1);
+    return course;
+}

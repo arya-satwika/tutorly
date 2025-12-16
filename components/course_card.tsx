@@ -1,6 +1,8 @@
+import Link from 'next/link';
 import Image from 'next/image';
 
 type CourseCardProps = {
+    id: number,
     title: string,
     description: string,
     tags: string[],
@@ -27,6 +29,7 @@ export function CourseTags({courseTag}: {courseTag: string}){
 let placeholderDesc = "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
 
 export default function CourseCard({
+    id=5,
     title='title', 
     description=placeholderDesc, 
     tags=[], 
@@ -50,6 +53,11 @@ export default function CourseCard({
     const sizedUrl = `${imageUrl}-/scale_crop/300x200/center/`
     return(
         <div className={`bg-white rounded-2xl border-2 border-blue-100 overflow-hidden shadow-md w-[300px] ${className}`}>
+            <Link 
+            href={`/courses/${id}`}
+            className="absolute inset-0 z-10"
+            />
+
             {/* Course Image */}
             <div className="relative h-[200px] w-full">
                 {imageUrl && (

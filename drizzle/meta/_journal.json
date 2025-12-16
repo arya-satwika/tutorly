@@ -8,6 +8,13 @@
       "when": 1765609525912,
       "tag": "0000_init",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1765875929719,
+      "tag": "0001_parallel_multiple_man",
+      "breakpoints": true
     }
   ]
 }

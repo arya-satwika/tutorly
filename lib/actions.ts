@@ -76,7 +76,7 @@ export  async function addCourse(prevState: ActionState , formData: FormData){
       teacher,
       harga,
       imageUrl,
-      tags: { jsonb: tags },
+      tags: tags,
       // imageUrl
     };
     const { succes, message } = await insertCourse(newCourse);
