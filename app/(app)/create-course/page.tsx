@@ -28,7 +28,7 @@ export default function createCourse(){
           <input type="datetime-local" placeholder="startAt" name="startAt" className="bg-red-700"/>
           <br />
           <input type="datetime-local" placeholder="endAt" name="endAt" className="bg-red-500"/>
-          <input type="file" name="image" accept='.png, .jpg, .jpeg, .webp' className="bg-red-700"/>
+          <input type="file" name="image" accept='.png,.jpg,.jpeg,.webp' className="bg-red-700"/>
           
           
           <button type="submit" disabled={isPending}>
