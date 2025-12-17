@@ -92,13 +92,13 @@ export  async function addCourse(prevState: ActionState , formData: FormData){
     const endDate = new Date(endAt);
     // Validate start is before end
     if (startDate >= endDate) {
-      return { success: false, message: 'End time must be after start time' };
+      return { succes: false, message: 'End time must be after start time', imageUrl: "" };
     }
 
     // Validate not in the past (optional)
     const now = new Date();
     if (startDate < now) {
-      return { success: false, message: 'Start time cannot be in the past' };
+      return { succes: false, message: 'Start time cannot be in the past', imageUrl: "" };
     }
      // 1. Convert File to Buffer
     const bytes = await image.arrayBuffer();
@@ -119,7 +119,8 @@ export  async function addCourse(prevState: ActionState , formData: FormData){
       teacher,
       harga,
       imageUrl,
-      duration,
+      startAt: startDate,
+      endAt: endDate,
       tags: tags,
       // imageUrl
     };
