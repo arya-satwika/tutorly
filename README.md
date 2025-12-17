@@ -39,10 +39,10 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
 # TODO
 - [x] bikin page dashboard
-- [] bikin page profile & settings
+- [ ] bikin page profile & settings
 - [x] bikin session token / id
-[x] bikin query ngambil course yang ada
-[ ] secure password
+- [x] bikin query ngambil course yang ada
+- [ ] secure password
 
 
 
