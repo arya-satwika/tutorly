@@ -29,15 +29,13 @@ export default async function RootLayout({
   let user = null;
   if (userId) {
     user = await getUserById(userId);
-  }else{
-    redirect('/login');
   }
 
   return (
       <section
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Navbar username={user?.name || "user"} saldo={user?.saldo || 0}>
+        <Navbar username={user?.name || "Guest"} saldo={user?.saldo || 0}>
           <section>{children}</section>
         </Navbar>
       </section>
