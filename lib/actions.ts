@@ -1,8 +1,9 @@
 'use server';
 import { type insertUserType, type insertCourseType, insertCourse, insertUser, getUserByName, getUserById, updatePassword } from "./db/queries";
-import { createSession, getUserId } from './session';
+import { createSession, getUserId, getUserName, createChangeToken, deleteSession } from './session';
 import { UploadClient } from '@uploadcare/upload-client'
 import { ChangePasswordForm } from '../components/user_forms';
+import { redirect } from "next/navigation";
 
 interface ActionState {
   succes: boolean;
@@ -42,6 +43,11 @@ export async function loginUser(prevState: ActionState, formData: FormData) {
     return { succes: response.succes, message: response.message };
 }
 
+export async function logOutUser() {
+    await deleteSession();
+    return {succes: true, message: "Logged out successfully"};
+}
+
 export async function changePassword(prevState: ActionState, formData: FormData){
   const userId = await getUserId();
   if (userId){
@@ -54,7 +60,14 @@ export async function changePassword(prevState: ActionState, formData: FormData)
       if (user.password === oldPassword){
         if (newPassword === confirmPassword){
           await updatePassword(userId, newPassword);
-          return { succes: true, message: "Password successfully changed" };
+          const changeToken = await createChangeToken(user.name);
+          if (changeToken){
+            await deleteSession();
+            return { succes: true, message: changeToken };
+          }else {
+            redirect('/change-password');
+            return { succes: false, message: "Failed to create change token" };
+          }
         } else {
           return { succes: false, message: "New password and confirmation do not match" };
         }
@@ -74,7 +87,10 @@ export async function changePassword(prevState: ActionState, formData: FormData)
 export  async function addCourse(prevState: ActionState , formData: FormData){
   const title = formData.get('title') as string;
   const description = formData.get('description') as string;
-  const teacher = formData.get('teacher') as string;
+  const teacher = await getUserName();
+  if (!teacher) {
+    return { succes: false, message: "You must be logged in to add a course", imageUrl: "" };
+  }
   const harga = Number(formData.get('harga'));
   const tagsString = formData.get('tags') as string;
   const image = formData.get('image') as File;
