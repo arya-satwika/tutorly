@@ -11,7 +11,7 @@ export default function DashboardHome() {
         <h1 className="text-2xl font-bold text-indigo-600">Tutorly</h1>
 
         <nav className="hidden md:flex gap-6 text-sm text-gray-600">
-          <Link href="#" className="hover:text-indigo-600">Explore</Link>
+          <Link href="/courses" className="hover:text-indigo-600">Explore</Link>
           <Link href="#" className="hover:text-indigo-600">Categories</Link>
           <Link href="#" className="hover:text-indigo-600">Teach</Link>
           <Link href="#" className="hover:text-indigo-600">For Business</Link>
@@ -46,13 +46,13 @@ export default function DashboardHome() {
 
           <div className="flex gap-4">
             <Link
-              href="/auth/register"
+              href="/login"
               className="px-6 py-3 rounded-full bg-indigo-600 text-white text-sm font-medium hover:bg-indigo-700"
             >
               Join for Free
             </Link>
             <Link
-              href="/dashboard/explore"
+              href="/courses"
               className="px-6 py-3 rounded-full border border-indigo-600 text-indigo-600 text-sm font-medium hover:bg-indigo-50"
             >
               Explore Courses
@@ -63,7 +63,7 @@ export default function DashboardHome() {
         {/* Hero Image */}
         <div className="relative w-full h-[380px] rounded-2xl overflow-hidden shadow-lg">
           <Image
-            src="/hero-students.jpg"
+            src="/DashboardTampilan.png"
             alt="Students learning together"
             fill
             className="object-cover"
@@ -103,12 +103,12 @@ export default function DashboardHome() {
             <h3 className="text-2xl font-bold">Popular Courses</h3>
             <p className="text-gray-500 text-sm">Most enrolled courses this month</p>
           </div>
-          <a
-            href="/dashboard/explore"
+          <Link
+            href="/courses"
             className="text-indigo-600 text-sm font-medium hover:underline"
-          >
+          > 
             View All Courses →
-          </a>
+          </Link>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -198,7 +198,7 @@ export default function DashboardHome() {
             Get unlimited access to thousands of courses.
           </p>
           <button className="px-8 py-4 bg-white text-indigo-600 font-semibold rounded-full hover:bg-gray-100 transition-colors">
-            Start Learning Now
+          <Link href="/courses" className="px-8 py-4 bg-white text-indigo-600 font-semibold rounded-full hover:bg-gray-100 transition-colors">Browse Courses</Link>
           </button>
           <p className="mt-6 text-sm opacity-80">
             30-day money-back guarantee • Cancel anytime
@@ -311,7 +311,7 @@ const testimonials = [
 ];
 
 const courses = [
-  { title: "Complete Web Development Bootcamp", author: "Dr. John Mitchell", price: "FREE", rating: "4.8", category: "Development", image : "C:/PBPUAS/tutorly/public/dprsahroni.png" },
+  { title: "Complete Web Development Bootcamp", author: "Dr. John Mitchell", price: "FREE", rating: "4.8", category: "Development", image : "TampilanDashboard.png" },
   { title: "Machine Learning A–Z: Python & R", author: "Dr. Sarah Chen", price: "$59.99", rating: "4.9", category: "Data Science", image : "C:/PBPUAS/tutorly/public/dprsahroni.png" },
   { title: "Complete UI/UX Design Masterclass", author: "Michael Rodriguez", price: "FREE", rating: "4.7", category: "Design", image : "C:/PBPUAS/tutorly/public/dprsahroni.png" },
   { title: "Digital Marketing Masterclass", author: "Emily Thompson", price: "$39.99", rating: "4.6", category: "Marketing", image : "C:/PBPUAS/tutorly/public/dprsahroni.png" },
