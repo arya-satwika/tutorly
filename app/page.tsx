@@ -1,9 +1,13 @@
-"use client";
+"use server";
 import Image from "next/image"; 
 import Link from "next/link";
+import { get10Courses } from "@/lib/db/queries";
+import CourseCard from "@/components/course_card";
 
 
-export default function DashboardHome() {
+
+export default async function DashboardHome() {
+  const courses = await get10Courses();
   return (
     <div className="bg-slate-50 min-h-screen">
       {/* Top Navbar */}
@@ -99,10 +103,6 @@ export default function DashboardHome() {
       {/* Popular Courses */}
       <section className="px-10 py-16 bg-slate-50">
         <div className="flex items-center justify-between mb-8">
-          <div>
-            <h3 className="text-2xl font-bold">Popular Courses</h3>
-            <p className="text-gray-500 text-sm">Most enrolled courses this month</p>
-          </div>
           <Link
             href="/courses"
             className="text-indigo-600 text-sm font-medium hover:underline"
@@ -112,22 +112,24 @@ export default function DashboardHome() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {courses.map((course) => (
-            <div key={course.title} className="bg-white rounded-2xl overflow-hidden shadow-sm">
-              <div className="h-40 bg-gray-200" />
-              <div className="p-4">
-                <span className="text-xs px-2 py-1 rounded bg-indigo-100 text-indigo-600">
-                  {course.category}
-                </span>
-                <h4 className="font-semibold mt-2 text-sm">{course.title}</h4>
-                <p className="text-xs text-gray-500 mb-2">{course.author}</p>
-                <div className="flex items-center justify-between text-sm">
-                  <span className="font-bold">{course.price}</span>
-                  <span className="text-yellow-500">⭐ {course.rating}</span>
-                </div>
-              </div>
-            </div>
-          ))}
+          {courses.length !== 0 && (
+            courses.map((course) => (
+              <CourseCard 
+              key={course.id}
+              id={course.id}
+              title={course.title}
+              tags = {course.tags}
+              description={course.description}
+              imageUrl={course.imageUrl}
+              studentCount={course.usersEnrolledId.length}
+              teacherName={course.teacherData.name}
+              startAt={course.startAt}
+              endAt={course.endAt}
+              harga={course.harga}
+              />
+            ))
+          )
+          }
         </div>
       </section>
 
@@ -191,7 +193,7 @@ export default function DashboardHome() {
         </div>
 
         {/* Call to Action Section */}
-        <div className="mt-20 text-center px-6 py-16 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-3xl text-white">
+        <div className="mt-20 text-center px-6 py-16 bg-linear-to-r from-indigo-600 to-purple-600 rounded-3xl text-white">
           <h3 className="text-3xl font-bold mb-4">Ready to Transform Your Career?</h3>
           <p className="text-lg mb-8 opacity-90 max-w-2xl mx-auto">
             Join 50 million learners worldwide and start your journey to success today. 
