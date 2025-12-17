@@ -35,14 +35,12 @@ export default async function RootLayout({
   }
 
   return (
-    <html lang="en">
-      <body
+      <section
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Navbar username={user?.name || "user"} saldo={user?.saldo || 0}>
           <section>{children}</section>
         </Navbar>
-      </body>
-    </html>
+      </section>
   );
 }

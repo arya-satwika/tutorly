@@ -43,6 +43,24 @@ export async function createSession(userId: number, name: string) {
     })
 }
 
+export async function createChangeToken(name: string) {
+    const expiresAt = new Date(Date.now() + 15 * 60 * 1000)
+    const token =await (new SignJWT({ name, purpose: 'changePassword' }))
+    .setProtectedHeader({ alg: 'HS256' })
+    .setIssuedAt()
+    .setExpirationTime('15m') 
+    .sign(encodedKey)
+    const cookieStore = await cookies();
+    cookieStore.set('changeToken', token, {
+        httpOnly: true,
+        secure: true,
+        expires: expiresAt,
+        sameSite: 'lax',
+        path: '/'
+    })
+    return token;
+}
+
 export async function getUserId(){
     const cookie = (await cookies()).get('session')?.value
     const session = await decrypt(cookie)

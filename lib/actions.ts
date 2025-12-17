@@ -1,8 +1,9 @@
 'use server';
 import { type insertUserType, type insertCourseType, insertCourse, insertUser, getUserByName, getUserById, updatePassword } from "./db/queries";
-import { createSession, getUserId } from './session';
+import { createSession, getUserId, createChangeToken, deleteSession } from './session';
 import { UploadClient } from '@uploadcare/upload-client'
 import { ChangePasswordForm } from '../components/user_forms';
+import { redirect } from "next/navigation";
 
 interface ActionState {
   succes: boolean;
@@ -54,7 +55,14 @@ export async function changePassword(prevState: ActionState, formData: FormData)
       if (user.password === oldPassword){
         if (newPassword === confirmPassword){
           await updatePassword(userId, newPassword);
-          return { succes: true, message: "Password successfully changed" };
+          const changeToken = await createChangeToken(user.name);
+          if (changeToken){
+            await deleteSession();
+            return { succes: true, message: changeToken };
+          }else {
+            redirect('/change-password');
+            return { succes: false, message: "Failed to create change token" };
+          }
         } else {
           return { succes: false, message: "New password and confirmation do not match" };
         }
