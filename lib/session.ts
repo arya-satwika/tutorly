@@ -70,6 +70,15 @@ export async function getUserId(){
     return null
 }
 
+export async function getUserName(){
+    const cookie = (await cookies()).get('session')?.value
+    const session = await decrypt(cookie)
+    if(session){
+      return session.name as string
+    }
+    return null
+}
+
 // export async function verifySession(userId:number, name:string){
 //     const cookie = (await cookies()).get('session')?.value
 //     if(!cookie){

@@ -1,6 +1,6 @@
 'use server';
 import { type insertUserType, type insertCourseType, insertCourse, insertUser, getUserByName, getUserById, updatePassword } from "./db/queries";
-import { createSession, getUserId, createChangeToken, deleteSession } from './session';
+import { createSession, getUserId, getUserName, createChangeToken, deleteSession } from './session';
 import { UploadClient } from '@uploadcare/upload-client'
 import { ChangePasswordForm } from '../components/user_forms';
 import { redirect } from "next/navigation";
@@ -87,7 +87,10 @@ export async function changePassword(prevState: ActionState, formData: FormData)
 export  async function addCourse(prevState: ActionState , formData: FormData){
   const title = formData.get('title') as string;
   const description = formData.get('description') as string;
-  const teacher = formData.get('teacher') as string;
+  const teacher = await getUserName();
+  if (!teacher) {
+    return { succes: false, message: "You must be logged in to add a course", imageUrl: "" };
+  }
   const harga = Number(formData.get('harga'));
   const tagsString = formData.get('tags') as string;
   const image = formData.get('image') as File;
