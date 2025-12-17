@@ -168,19 +168,101 @@ export default function DashboardHome() {
         </div>
       </section>
 
-      {/* Testimonials */}
+      {/* Testimonials - Updated from image */}
       <section className="px-10 py-16 bg-white">
-        <h3 className="text-2xl font-bold text-center mb-10">What Our Students Say</h3>
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="text-center mb-12">
+          <h3 className="text-3xl font-bold mb-4">What Our Students Say</h3>
+          <p className="text-gray-600">Join millions of learners achieving their goals</p>
+        </div>
+        
+        <div className="grid md:grid-cols-3 gap-8">
           {testimonials.map((t) => (
-            <div key={t.name} className="bg-slate-50 rounded-2xl p-6">
-              <p className="text-sm text-gray-600 mb-4">“{t.text}”</p>
-              <h4 className="font-semibold">{t.name}</h4>
-              <p className="text-xs text-gray-500">{t.role}</p>
+            <div key={t.name} className="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow">
+              <div className="flex text-yellow-400 mb-4">
+                {"★".repeat(5)}
+              </div>
+              <p className="text-gray-700 mb-6 leading-relaxed"></p>
+              <div>
+                <h4 className="font-bold text-lg">{t.name}</h4>
+                <p className="text-gray-600">{t.role}</p>
+              </div>
             </div>
           ))}
         </div>
+
+        {/* Call to Action Section */}
+        <div className="mt-20 text-center px-6 py-16 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-3xl text-white">
+          <h3 className="text-3xl font-bold mb-4">Ready to Transform Your Career?</h3>
+          <p className="text-lg mb-8 opacity-90 max-w-2xl mx-auto">
+            Join 50 million learners worldwide and start your journey to success today. 
+            Get unlimited access to thousands of courses.
+          </p>
+          <button className="px-8 py-4 bg-white text-indigo-600 font-semibold rounded-full hover:bg-gray-100 transition-colors">
+            Start Learning Now
+          </button>
+          <p className="mt-6 text-sm opacity-80">
+            30-day money-back guarantee • Cancel anytime
+          </p>
+        </div>
       </section>
+
+      {/* Footer - Updated from image */}
+      <footer className="bg-gray-900 text-white px-10 py-12">
+        <div className="grid md:grid-cols-5 gap-8 mb-10">
+          <div>
+            <h3 className="text-2xl font-bold mb-4">Tutorly</h3>
+            <p className="text-gray-400 text-sm">
+              Empowering millions of learners worldwide to achieve their career goals through quality education.
+            </p>
+          </div>
+          
+          <div>
+            <h4 className="font-semibold mb-4">Company</h4>
+            <ul className="space-y-2 text-sm text-gray-400">
+              <li><a href="#" className="hover:text-white">About Us</a></li>
+              <li><a href="#" className="hover:text-white">Careers</a></li>
+              <li><a href="#" className="hover:text-white">Press</a></li>
+              <li><a href="#" className="hover:text-white">Blog</a></li>
+            </ul>
+          </div>
+          
+          <div>
+            <h4 className="font-semibold mb-4">Resources</h4>
+            <ul className="space-y-2 text-sm text-gray-400">
+              <li><a href="#" className="hover:text-white">Help Center</a></li>
+              <li><a href="#" className="hover:text-white">Teaching Center</a></li>
+              <li><a href="#" className="hover:text-white">Affiliates</a></li>
+              <li><a href="#" className="hover:text-white">Partners</a></li>
+            </ul>
+          </div>
+          
+          <div>
+            <h4 className="font-semibold mb-4">Community</h4>
+            <ul className="space-y-2 text-sm text-gray-400">
+              <li><a href="#" className="hover:text-white">Learners</a></li>
+              <li><a href="#" className="hover:text-white">Instructors</a></li>
+              <li><a href="#" className="hover:text-white">Beta Testers</a></li>
+              <li><a href="#" className="hover:text-white">Translators</a></li>
+            </ul>
+          </div>
+          
+          <div>
+            <h4 className="font-semibold mb-4">Follow Us</h4>
+            <div className="flex gap-4 mb-6">
+              {/* Social icons would go here */}
+            </div>
+            <ul className="space-y-2 text-sm text-gray-400">
+              <li><a href="#" className="hover:text-white">Terms of Service</a></li>
+              <li><a href="#" className="hover:text-white">Privacy Policy</a></li>
+              <li><a href="#" className="hover:text-white">Cookie Policy</a></li>
+            </ul>
+          </div>
+        </div>
+        
+        <div className="pt-8 border-t border-gray-800 text-center text-gray-400 text-sm">
+          <p>© 2024 Tutorly, Inc. All rights reserved.</p>
+        </div>
+      </footer>
     </div>
   );
 }
@@ -194,7 +276,7 @@ const categories = [
   { title: "Marketing", count: "4,500+ courses", desc: "SEO, Social Media", color: "bg-red-100", icon: "📣" },
   { title: "Health", count: "3,200+ courses", desc: "Fitness, Mental Health", color: "bg-emerald-100", icon: "💚" },
   { title: "Music", count: "2,100+ courses", desc: "Production, Theory", color: "bg-indigo-100", icon: "🎵" },
-  { title: "Photography", count: "1,800+ courses", desc: "Portrait, Landscape", color: "bg-pink-100", icon: "📷" },
+  { title: "Photography", count: "1,800+ courses", desc: "Portrait, Landscape", color: "bg-pink", icon: "📷" },
 ];
 
 const learningJourney = [
@@ -204,22 +286,33 @@ const learningJourney = [
 ];
 
 const instructors = [
-  { name: "Dr. John Mitchell", role: "Full-Stack Developer", rating: "4.8", students: "125k" },
+  { name: "Dr. John Mitchell", role: "Full-Stack Developer", rating: "4.8", students: "125k"},
   { name: "Dr. Sarah Chen", role: "Data Scientist", rating: "4.9", students: "98k" },
   { name: "Michael Rodriguez", role: "UI/UX Designer", rating: "4.7", students: "76k" },
   { name: "Emily Thompson", role: "Marketing Expert", rating: "4.6", students: "112k" },
 ];
 
 const testimonials = [
-  { name: "James Wilson", role: "Software Engineer at Google", text: "This platform completely changed my career trajectory." },
-  { name: "Maria Garcia", role: "UX Designer at Adobe", text: "The quality of education here is unmatched." },
-  { name: "David Park", role: "Data Analyst at Microsoft", text: "LearnHub delivered exactly what I needed." },
+  { 
+    name: "James Wilson", 
+    role: "Software Engineer at Google", 
+    text: "This platform completely changed my career trajectory. The courses are comprehensive, and the instructors are world-class. I landed my dream job within 3 months of completing the bootcamp!" 
+  },
+  { 
+    name: "Maria Garcia", 
+    role: "UX Designer at Adobe", 
+    text: "The quality of education here is unmatched. I've tried other platforms, but Tutorly stands out with its practical approach and real-world projects. Highly recommend to anyone serious about learning!" 
+  },
+  { 
+    name: "David Park", 
+    role: "Data Analyst at Microsoft", 
+    text: "As a working professional, I needed flexible learning options. Tutorly delivered exactly that. The self-paced courses fit perfectly into my schedule, and I was able to upskill without disrupting my career." 
+  },
 ];
 
 const courses = [
-  { title: "Complete Web Development Bootcamp", author: "Dr. John Mitchell", price: "FREE", rating: "4.8", category: "Development" },
-  { title: "Machine Learning A–Z: Python & R", author: "Dr. Sarah Chen", price: "$59.99", rating: "4.9", category: "Data Science" },
-  { title: "Complete UI/UX Design Masterclass", author: "Michael Rodriguez", price: "FREE", rating: "4.7", category: "Design" },
-  { title: "Digital Marketing Masterclass", author: "Emily Thompson", price: "$39.99", rating: "4.6", category: "Marketing" },
+  { title: "Complete Web Development Bootcamp", author: "Dr. John Mitchell", price: "FREE", rating: "4.8", category: "Development", image : "C:/PBPUAS/tutorly/public/dprsahroni.png" },
+  { title: "Machine Learning A–Z: Python & R", author: "Dr. Sarah Chen", price: "$59.99", rating: "4.9", category: "Data Science", image : "C:/PBPUAS/tutorly/public/dprsahroni.png" },
+  { title: "Complete UI/UX Design Masterclass", author: "Michael Rodriguez", price: "FREE", rating: "4.7", category: "Design", image : "C:/PBPUAS/tutorly/public/dprsahroni.png" },
+  { title: "Digital Marketing Masterclass", author: "Emily Thompson", price: "$39.99", rating: "4.6", category: "Marketing", image : "C:/PBPUAS/tutorly/public/dprsahroni.png" },
 ];
-
