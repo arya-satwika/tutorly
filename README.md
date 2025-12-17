@@ -5,7 +5,7 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 - Arya Satwika (069) - [arya-satwika](https://github.com/arya-satwika)
 - Muhammad Faisal Daud (046) - [Call06](https://github.com/Call06)
 - Raihan Zein Ramadhan (045) - [YamanakaTakuyaa](https://github.com/YamanakaTakuyaa)
-- Soma Zenwira WYW (053) - [ZenRaven] (https://github.com/24051204053-commits)
+- Soma Zenwira WYW (053) - [ZenRaven](https://github.com/24051204053-commits)
 
 
 ## Getting Started
