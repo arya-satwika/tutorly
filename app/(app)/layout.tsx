@@ -4,7 +4,6 @@ import { getUserId } from "@/lib/session";
 import { getUserById } from "@/lib/db/queries";
 import Navbar from "@/components/navbar";
 import { redirect } from "next/navigation";
-import { get } from "http";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

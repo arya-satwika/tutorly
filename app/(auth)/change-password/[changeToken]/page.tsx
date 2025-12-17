@@ -12,7 +12,6 @@ export default async function ChangePasswordSuccessPage({
 
   const cookieStore = await cookies();
   const changeToken = cookieStore.get("changeToken")?.value;
-  // await deleteSession();
   if (changeToken === changeTokenSlug || !changeTokenSlug) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-sky-100">
