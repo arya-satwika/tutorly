@@ -38,9 +38,9 @@ To learn more about Next.js, take a look at the following resources:
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
 # TODO
-[x] bikin page dashboard
-[] bikin page profile & settings
-[x] bikin session token / id
+- [x] bikin page dashboard
+- [] bikin page profile & settings
+- [x] bikin session token / id
 [x] bikin query ngambil course yang ada
 [ ] secure password
 
