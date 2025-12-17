@@ -1,5 +1,13 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+# Anggota Kelompok
+
+- Arya Satwika (069) - [arya-satwika](https://github.com/arya-satwika)
+- Muhammad Faisal Daud (046) - [Call06](https://github.com/Call06)
+- Raihan Zein Ramadhan (045) - [YamanakaTakuyaa](https://github.com/YamanakaTakuyaa)
+- Soma Zenwira WYW (053) - [ZenRaven] (https://github.com/24051204053-commits)
+
+
 ## Getting Started
 
 ### Yang perlu diinstal
@@ -33,7 +41,7 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 [x] bikin page dashboard
 [] bikin page profile & settings
 [x] bikin session token / id
-[ ] bikin query ngambil course yang ada
+[x] bikin query ngambil course yang ada
 [ ] secure password
 
 
