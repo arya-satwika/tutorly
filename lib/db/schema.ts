@@ -37,6 +37,7 @@ export const courses = pgTable('courses', {
     startAt: timestamp('start_at', { withTimezone: true }).notNull(),
     endAt: timestamp('end_at', { withTimezone: true }).notNull(),
     usersEnrolledId: jsonb('users_enrolled').default([]).notNull().$type<number[]>().references(() => users.id),
+    linkMeeting: text('link_meeting'),
 }); 
 
 export const coursesRelations = relations(courses, ({ one }) => ({

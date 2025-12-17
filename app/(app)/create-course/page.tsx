@@ -126,6 +126,16 @@ export default function createCourse(){
               />
             </div>
 
+            {/* Meeting Link */}
+            <div className="w-full md:w-1/2">
+              <input 
+                type="url" 
+                placeholder="Meeting Link (e.g., https://zoom.us/j/...)" 
+                name="linkMeeting" 
+                className="w-full px-4 py-3 border border-gray-200 rounded-xl text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent"
+              />
+            </div>
+
             {/* Submit Button */}
             <div className="flex justify-end pt-4">
               <button 

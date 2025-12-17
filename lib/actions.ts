@@ -96,6 +96,7 @@ export  async function addCourse(prevState: ActionState , formData: FormData){
   const image = formData.get('image') as File;
   const startAt = (formData.get('startAt')) as string;
   const endAt = (formData.get('endAt')) as string;
+  const linkMeeting = formData.get('linkMeeting') as string | null;
   const tags = tagsString.split(',').map(tag => tag.trim());
 
   // Check if image was provided
@@ -138,7 +139,7 @@ export  async function addCourse(prevState: ActionState , formData: FormData){
       startAt: startDate,
       endAt: endDate,
       tags: tags,
-      // imageUrl
+      linkMeeting: linkMeeting || null,
     };
     const { succes, message } = await insertCourse(newCourse);
     return { succes, message, imageUrl };
