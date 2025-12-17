@@ -43,6 +43,11 @@ export async function loginUser(prevState: ActionState, formData: FormData) {
     return { succes: response.succes, message: response.message };
 }
 
+export async function logOutUser() {
+    await deleteSession();
+    return {succes: true, message: "Logged out successfully"};
+}
+
 export async function changePassword(prevState: ActionState, formData: FormData){
   const userId = await getUserId();
   if (userId){

@@ -1,7 +1,10 @@
 'use client'
-import { usePathname } from 'next/navigation';
+import { redirect, usePathname } from 'next/navigation';
 // import { headers } from 'next/headers';
 import Link from "next/link";
+import { useActionState } from 'react';
+import { logOutUser } from '@/lib/actions';
+import { messages } from '../lib/db/schema';
 
 interface NavbarProps {
   children: React.ReactNode;
@@ -11,7 +14,7 @@ interface NavbarProps {
 
 export default function Navbar({ 
   children, 
-  username="user", 
+  username="Guest", 
   saldo=0
  }: NavbarProps) {
   const pathname = usePathname();
@@ -20,6 +23,16 @@ export default function Navbar({
   //   : pathname === '/sandbox' 
   //   ? 'text-cyan-600 bg-cyan-50 border-l-3 border-cyan-500 rounded-lg':
   //   '';
+
+  const [{succes: succesLogout, message: messageLogout}, handleLogout] = useActionState(logOutUser,{
+    succes: false,
+    message: ""
+  });
+  if (succesLogout){
+    redirect('/login');
+  }
+  
+
   return (
     <div className="flex">
       {/* Sidebar */}
@@ -99,6 +112,38 @@ export default function Navbar({
           </Link>
         </nav>
         </div>
+        {/* Logout / Login Button */}
+        {username !== "Guest" ?(
+          <form action={handleLogout} className="mt-auto">
+            <button type="submit" className="flex items-center gap-3 px-3 py-1 bg-red-100 rounded-full w-full hover:bg-red-200 transition-colors">
+              {/* Logout Icon */}
+              <div className="w-10 h-10 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-red-500">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
+                </svg>
+              </div>
+              {/* Logout Text */}
+              <div>
+                <p className="text-md font-medium text-red-600">Log Out</p>
+              </div>
+            </button>
+          </form>
+        ) : (
+          <div className="mt-auto">
+            <Link href="/login" className="flex items-center gap-3 px-3 py-1 bg-green-100 rounded-full w-full hover:bg-green-200 transition-colors">
+              {/* Login Icon */}
+              <div className="w-10 h-10 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-green-500">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
+                </svg>
+              </div>
+              {/* Login Text */}
+              <div>
+                <p className="text-md font-medium text-green-600">Log In</p>
+              </div>
+            </Link>
+          </div>
+        )}
       
       </div>
 

@@ -3,6 +3,7 @@ import { loginUser, registerUser, changePassword } from "@/lib/actions";
 import { redirect } from "next/navigation";
 import { useState } from "react";
 import { useActionState } from "react";
+import Link from "next/link";
 
 type formType = 'login' | 'register' | 'changePassword';
 
@@ -91,6 +92,14 @@ export function LoginForm(){
             {isPending ? "Signing in..." : "Sign In"}
           </button>
         </form>
+
+        {/* Register Link */}
+        <p className="text-center text-sm text-gray-600 mt-4">
+          Don&apos;t have an account?{" "}
+          <Link href="/register" className="text-cyan-500 hover:text-cyan-600 font-medium">
+            Register
+          </Link>
+        </p>
       </div>
     );
 }
@@ -200,6 +209,14 @@ export function RegisterForm(){
             {isPending ? "Registering..." : "Register"}
           </button>
         </form>
+
+        {/* Login Link */}
+        <p className="text-center text-sm text-gray-600 mt-4">
+          Already have an account?{" "}
+          <Link href="/login" className="text-cyan-500 hover:text-cyan-600 font-medium">
+            Login
+          </Link>
+        </p>
       </div>
     );
 }
