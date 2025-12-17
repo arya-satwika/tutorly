@@ -1,7 +1,7 @@
 "use client";
-
-import Image from "next/image";
+import Image from "next/image"; 
 import Link from "next/link";
+
 
 export default function DashboardHome() {
   return (
@@ -23,7 +23,7 @@ export default function DashboardHome() {
             className="hidden md:block px-4 py-2 text-sm border rounded-full bg-slate-50"
           />
           <div className="w-9 h-9 rounded-full bg-indigo-500 text-white flex items-center justify-center text-sm font-bold">
-            Zn
+            JD
           </div>
         </div>
       </header>
@@ -52,7 +52,7 @@ export default function DashboardHome() {
               Join for Free
             </Link>
             <Link
-              href="/dashboard/explorecourse"
+              href="/dashboard/explore"
               className="px-6 py-3 rounded-full border border-indigo-600 text-indigo-600 text-sm font-medium hover:bg-indigo-50"
             >
               Explore Courses
@@ -62,8 +62,8 @@ export default function DashboardHome() {
 
         {/* Hero Image */}
         <div className="relative w-full h-[380px] rounded-2xl overflow-hidden shadow-lg">
-          <Image 
-            src="/bgdprsahroni.png" 
+          <Image
+            src="/hero-students.jpg"
             alt="Students learning together"
             fill
             className="object-cover"
@@ -104,7 +104,7 @@ export default function DashboardHome() {
             <p className="text-gray-500 text-sm">Most enrolled courses this month</p>
           </div>
           <a
-            href="/dashboard/explorecourse"
+            href="/dashboard/explore"
             className="text-indigo-600 text-sm font-medium hover:underline"
           >
             View All Courses →
@@ -114,7 +114,7 @@ export default function DashboardHome() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {courses.map((course) => (
             <div key={course.title} className="bg-white rounded-2xl overflow-hidden shadow-sm">
-              <div className="h-40 bg-gray-200"/>
+              <div className="h-40 bg-gray-200" />
               <div className="p-4">
                 <span className="text-xs px-2 py-1 rounded bg-indigo-100 text-indigo-600">
                   {course.category}
@@ -122,7 +122,6 @@ export default function DashboardHome() {
                 <h4 className="font-semibold mt-2 text-sm">{course.title}</h4>
                 <p className="text-xs text-gray-500 mb-2">{course.author}</p>
                 <div className="flex items-center justify-between text-sm">
-                  
                   <span className="font-bold">{course.price}</span>
                   <span className="text-yellow-500">⭐ {course.rating}</span>
                 </div>
